@@ -1,7 +1,7 @@
 var stopwatchElement = document.createElement('div');
 
 stopwatchElement.style.backgroundColor = 'lightgray';
-stopwatchElement.style.width = '300px';
+stopwatchElement.style.width = '250px';
 stopwatchElement.style.position = 'fixed';
 stopwatchElement.style.top = '50px';  // 상단으로 조정
 stopwatchElement.style.right = '50px';  // 오른쪽으로 조정
@@ -10,12 +10,14 @@ stopwatchElement.style.zIndex = '9999';
 stopwatchElement.style.borderRadius = '10px';
 stopwatchElement.style.userSelect = 'none'; // 드래그 막기
 stopwatchElement.style.textAlign = 'center';
+stopwatchElement.style.display = 'none';
 
 var TimeElement = document.createElement('div');
 TimeElement.id = 'stopwatch';
 TimeElement.style.fontSize = '50px';
 TimeElement.style.fontWeight = 'bold';
-TimeElement.textContent = '0:00:00.00';
+TimeElement.textContent = '00:00.00';
+TimeElement.style.paddingBottom = '16px';
 
 var startstop = document.createElement('button');
 var resetbutton = document.createElement('button');
@@ -36,47 +38,37 @@ document.body.appendChild(stopwatchElement);
 
 let timer;
 let isRunning = false;
-let milliseconds = 0;
-let seconds = 0;
-let minutes = 0;
-let hours = 0;
+let startTime;
+let stopTime;
 
 function startStop() {
     if (isRunning) {
         clearInterval(timer);
         startstop.textContent = "시작";
+        stopTime = Date.now();
     } else {
-      timer = setInterval(updateTime, 10);
+        startTime = Date.now();
+        if (stopTime) startTime = stopTime;
+        stopTime = null;
+        timer = setInterval(updateTime, 10);
         startstop.textContent = "중지";
     }
     isRunning = !isRunning;
 }
 
 function updateTime() {
-    milliseconds += 1;
-    if (milliseconds === 100) {
-        milliseconds = 0;
-        seconds++;
-        if (seconds === 60) {
-            seconds = 0;
-            minutes++;
-            if (minutes === 60) {
-                minutes = 0;
-                hours++;
-            }
-        }
-    }
-    TimeElement.textContent = `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(2, '0')}`;
+    let currentTime = Date.now() - startTime;
+    let minutes = Math.floor(currentTime / 60000);
+    let seconds = Math.floor((currentTime % 60000) / 1000);
+    let milliseconds = Math.floor(currentTime % 1000 / 10);
+
+    TimeElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(2, '0')}`;
 }
 
 function reset() {
     clearInterval(timer);
     isRunning = false;
-    milliseconds = 0;
-    seconds = 0;
-    minutes = 0;
-    hours = 0;
-    TimeElement.textContent = `0:00:00.00`;
+    TimeElement.textContent = `00:00.00`;
     startstop.textContent = "시작";
 }
 
