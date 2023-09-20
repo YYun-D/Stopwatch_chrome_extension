@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // TimeDisplay 활성화
   function enableTimeDisplay() {
-    var currentTimeElement = document.getElementById('current-time');
+    var currentTimeElement = document.getElementById('stopwatch');
     if (currentTimeElement) {
       currentTimeElement.style.display = 'block';
     }
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // TimeDisplay 비활성화
   function disableTimeDisplay() {
-    var currentTimeElement = document.getElementById('current-time');
+    var currentTimeElement = document.getElementById('stopwatch');
     if (currentTimeElement) {
       currentTimeElement.style.display = 'none';
     }
