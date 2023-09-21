@@ -165,6 +165,9 @@ function updateset() {
     TimeElement.textContent = `${String(settingminute.value).padStart(2, '0')}:${String(settingsecond.value).padStart(2, '0')}.00`;
   else if (String(settingminute.value)>0 && String(settingsecond.value).padStart(2, '0')>0 && String(settingsecond.value).padStart(2, '0')<60)
     TimeElement.textContent = `${String(settingminute.value).padStart(2, '0')}:${String(settingsecond.value).padStart(2, '0')}.00`;
+  else
+    return;
+  stopTime = String(settingminute.value)*60000 + String(settingsecond.value)*1000;
 }
 
 chrome.runtime.sendMessage({action: 'getTimeDisplayStatus'}, function(response) {
