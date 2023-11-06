@@ -1,4 +1,4 @@
-# 시작 시간 변경이 가능한 스톱워치
+# 크롬 확장프로그램 : 시작 시간 변경이 가능한 스톱워치
 
 ![스크린샷 2023-11-06 233054](https://github.com/YYun-D/Stopwatch_chrome_extension/assets/85883811/b49b34a1-72ad-4265-a942-bd2c6e296ca4)
 
